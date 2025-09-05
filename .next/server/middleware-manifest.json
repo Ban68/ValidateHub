@@ -1,6 +1,48 @@
 {
   "version": 3,
-  "middleware": {},
+  "middleware": {
+    "/": {
+      "files": [
+        "server/edge-runtime-webpack.js",
+        "server/middleware.js"
+      ],
+      "name": "middleware",
+      "page": "/",
+      "matchers": [
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/app(?:\\/((?:[^\\/#\\?]+?)(?:\\/(?:[^\\/#\\?]+?))*))?(.json)?[\\/#\\?]?$",
+          "originalSource": "/app/:path*"
+        },
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/onboarding(.json)?[\\/#\\?]?$",
+          "originalSource": "/onboarding"
+        },
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/sign-in(.json)?[\\/#\\?]?$",
+          "originalSource": "/sign-in"
+        },
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?(?:\\/(\\/?index|\\/?index\\.json))?[\\/#\\?]?$",
+          "originalSource": "/"
+        },
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/api\\/health(.json)?[\\/#\\?]?$",
+          "originalSource": "/api/health"
+        }
+      ],
+      "wasm": [],
+      "assets": [],
+      "env": {
+        "__NEXT_BUILD_ID": "mG449LME2yA1z29mOiewl",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "ie9qZyswuY/Pafw7j4kZM3yvdE/eSKv73xC2ngVWB0o=",
+        "__NEXT_PREVIEW_MODE_ID": "88369fd023944a7c244f75fd42a1e1d5",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "ab9fbb3b9b040e95e424459691ab3fd7f997a03c527a894c328bcb6eab5cd828",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "1daf2c0bd2f0ea4456230e7bf0f35980397af1ff92ca9562464c535f6daa49a5"
+      }
+    }
+  },
   "functions": {},
-  "sortedMiddleware": []
+  "sortedMiddleware": [
+    "/"
+  ]
 }

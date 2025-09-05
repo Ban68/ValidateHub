@@ -1,3 +1,52 @@
 {
-  "pages": {}
+  "pages": {
+    "/_not-found/page": [
+      "static/chunks/webpack-7ae2dd9541894529.js",
+      "static/chunks/fd9d1056-b14130bb1ce7c376.js",
+      "static/chunks/117-868d19b0d7db10ef.js",
+      "static/chunks/main-app-74d36765f54a5a8d.js",
+      "static/chunks/app/_not-found/page-8fbead43905f0fc9.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack-7ae2dd9541894529.js",
+      "static/chunks/fd9d1056-b14130bb1ce7c376.js",
+      "static/chunks/117-868d19b0d7db10ef.js",
+      "static/chunks/main-app-74d36765f54a5a8d.js",
+      "static/css/d311c6e1b8fd6a0e.css",
+      "static/chunks/app/layout-5ec33746969fed3e.js"
+    ],
+    "/onboarding/page": [
+      "static/chunks/webpack-7ae2dd9541894529.js",
+      "static/chunks/fd9d1056-b14130bb1ce7c376.js",
+      "static/chunks/117-868d19b0d7db10ef.js",
+      "static/chunks/main-app-74d36765f54a5a8d.js",
+      "static/chunks/app/onboarding/page-90bccb1f650ea101.js"
+    ],
+    "/app/page": [
+      "static/chunks/webpack-7ae2dd9541894529.js",
+      "static/chunks/fd9d1056-b14130bb1ce7c376.js",
+      "static/chunks/117-868d19b0d7db10ef.js",
+      "static/chunks/main-app-74d36765f54a5a8d.js",
+      "static/chunks/50-736f496c819cd1af.js",
+      "static/chunks/605-4287a2cd5004aeee.js",
+      "static/chunks/app/app/page-a3c9ac3a5b9a50a1.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-7ae2dd9541894529.js",
+      "static/chunks/fd9d1056-b14130bb1ce7c376.js",
+      "static/chunks/117-868d19b0d7db10ef.js",
+      "static/chunks/main-app-74d36765f54a5a8d.js",
+      "static/chunks/50-736f496c819cd1af.js",
+      "static/chunks/app/page-2b8dfcaee5a18a4b.js"
+    ],
+    "/sign-in/page": [
+      "static/chunks/webpack-7ae2dd9541894529.js",
+      "static/chunks/fd9d1056-b14130bb1ce7c376.js",
+      "static/chunks/117-868d19b0d7db10ef.js",
+      "static/chunks/main-app-74d36765f54a5a8d.js",
+      "static/chunks/50-736f496c819cd1af.js",
+      "static/chunks/605-4287a2cd5004aeee.js",
+      "static/chunks/app/sign-in/page-8e072f55505381b4.js"
+    ]
+  }
 }
