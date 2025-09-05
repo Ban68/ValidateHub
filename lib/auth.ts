@@ -5,6 +5,9 @@ import { prisma } from "@/lib/prisma"
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     EmailProvider({
       server: {
@@ -17,13 +20,50 @@ export const authOptions: NextAuthOptions = {
         secure: false, // For STARTTLS
       },
       from: process.env.EMAIL_FROM,
-      // TEMP: log detallado para depurar
-      ...(process.env.NODE_ENV !== "production" && {
-        maxAge: 24 * 60 * 60,
-        generateVerificationToken: async () => undefined as any, // fuerza log del default flow
-      }),
     }),
   ],
-  // TEMP: logs
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      const membership = await prisma.membership.findFirst({
+        where: { userId: token.id as string },
+        include: {
+          organization: {
+            include: {
+              workspaces: { take: 1 },
+            },
+          },
+        },
+      });
+
+      if (membership) {
+        (token as any).membership = {
+          id: membership.id,
+          role: membership.role,
+          organizationId: membership.organizationId,
+          workspaceId: membership.organization.workspaces[0]?.id,
+        };
+      } else {
+        // remove membership from token if it exists
+        delete (token as any).membership;
+      }
+
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        (session.user as any).id = token.id;
+      }
+      (session as any).membership = (token as any).membership;
+      return session;
+    },
+  },
+  pages: {
+    signIn: '/sign-in',
+    verifyRequest: '/sign-in?verifyRequest=true',
+  },
+  secret: process.env.NEXTAUTH_SECRET,
   debug: process.env.NODE_ENV !== "production",
 }
