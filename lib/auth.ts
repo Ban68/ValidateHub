@@ -1,4 +1,3 @@
-// lib/auth.ts
 import NextAuth, { type NextAuthOptions } from "next-auth"
 import EmailProvider from "next-auth/providers/email"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
@@ -9,14 +8,15 @@ export const authOptions: NextAuthOptions = {
   providers: [
     EmailProvider({
       server: {
-        host: process.env.EMAIL_SERVER_HOST,   // sandbox.smtp.mailtrap.io
-        port: Number(process.env.EMAIL_SERVER_PORT), // 2525
+        host: process.env.EMAIL_SERVER_HOST,
+        port: Number(process.env.EMAIL_SERVER_PORT),
         auth: {
-          user: process.env.EMAIL_SERVER_USER,       // c213df...
-          pass: process.env.EMAIL_SERVER_PASSWORD,   // (completo)
+          user: process.env.EMAIL_SERVER_USER,
+          pass: process.env.EMAIL_SERVER_PASSWORD,
         },
+        secure: false, // For STARTTLS
       },
-      from: process.env.EMAIL_FROM, // "Validate Hub <no-reply@validatehub.local>"
+      from: process.env.EMAIL_FROM,
       // TEMP: log detallado para depurar
       ...(process.env.NODE_ENV !== "production" && {
         maxAge: 24 * 60 * 60,
