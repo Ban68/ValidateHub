@@ -14,7 +14,7 @@ export default async function AppPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
       <div className="text-center p-4">
-        <p className="mb-2">Signed in as {session.user?.email}</p>
+        <p className="mb-2">Signed in as {session?.user?.email}</p>
         <h1 className="text-2xl font-bold">
           Org: {organization?.name} &middot; Workspace: {workspace?.name}
         </h1>
