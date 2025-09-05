@@ -1,12 +1,39 @@
+'use client';
+
+import { useFormState, useFormStatus } from 'react-dom';
 import { createOrgAndWorkspace } from './actions';
 import { Button } from '@/components/ui/button';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
+const initialState = { success: false, error: undefined };
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" disabled={pending}>
+      {pending ? 'Creating...' : 'Create'}
+    </Button>
+  );
+}
 
 export default function OnboardingPage() {
+  const [state, formAction] = useFormState(createOrgAndWorkspace, initialState);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (state.success) {
+      fetch('/api/auth/session?update').then(() => {
+        router.push('/app');
+      });
+    }
+  }, [state.success, router]);
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
       <h1 className="text-2xl font-bold mb-4">Onboarding</h1>
       <p className="mb-6">Create your first organization and workspace.</p>
-      <form action={createOrgAndWorkspace} className="flex flex-col gap-4 w-80">
+      <form action={formAction} className="flex flex-col gap-4 w-80">
         <input
           name="orgName"
           placeholder="Organization Name"
@@ -19,7 +46,8 @@ export default function OnboardingPage() {
           className="p-2 border rounded"
           required
         />
-        <Button type="submit">Create</Button>
+        <SubmitButton />
+        {state.error && <p className="text-red-500">{state.error}</p>}
       </form>
     </div>
   );
