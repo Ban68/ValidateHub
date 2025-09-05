@@ -4,7 +4,6 @@ import { useFormState, useFormStatus } from 'react-dom';
 import { createOrgAndWorkspace } from './actions';
 import { Button } from '@/components/ui/button';
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 
 const initialState = { success: false, error: undefined };
 
@@ -19,15 +18,14 @@ function SubmitButton() {
 
 export default function OnboardingPage() {
   const [state, formAction] = useFormState(createOrgAndWorkspace, initialState);
-  const router = useRouter();
 
   useEffect(() => {
     if (state.success) {
       fetch('/api/auth/session?update').then(() => {
-        router.push('/app');
+        window.location.href = '/app';
       });
     }
-  }, [state.success, router]);
+  }, [state.success]);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
