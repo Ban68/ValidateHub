@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { useSearchParams } from 'next/navigation';
 
-export default function SignInPage() {
+function SignInContent() {
   const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(searchParams.get('verifyRequest') === 'true');
@@ -40,5 +40,19 @@ export default function SignInPage() {
         <Button type="submit">Send Magic Link</Button>
       </form>
     </div>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen flex-col items-center justify-center p-4">
+          <p>Loading...</p>
+        </div>
+      }
+    >
+      <SignInContent />
+    </Suspense>
   );
 }

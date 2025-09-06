@@ -5,7 +5,7 @@ import { prisma } from './prisma';
 export async function getCurrentContext() {
   const session = await getServerSession(authOptions);
 
-  const membership = (session as any)?.membership;
+  const membership = session?.membership;
 
   if (!membership?.organizationId || !membership?.workspaceId) {
     return null;

@@ -3,7 +3,9 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export async function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl;
+  const url = req.nextUrl;
+  const { pathname } = url;
+  const forceOnboarding = url.searchParams.get('force') === 'true';
   
   // Allow public routes
   if (pathname === '/' || pathname.startsWith('/api/health')) {
@@ -23,13 +25,13 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL('/sign-in', req.url));
     }
 
-    const hasMembership = (token as any).membership;
+    const hasMembership = token?.membership;
 
     if (pathname.startsWith('/app') && !hasMembership) {
       return NextResponse.redirect(new URL('/onboarding', req.url));
     }
 
-    if (pathname.startsWith('/onboarding') && hasMembership) {
+    if (pathname.startsWith('/onboarding') && hasMembership && !forceOnboarding) {
       return NextResponse.redirect(new URL('/app', req.url));
     }
   }

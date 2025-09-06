@@ -1,5 +1,13 @@
 {
   "node": {
+    "a68e151aac35f100cb5f10e664ff1d1696434d78": {
+      "workers": {
+        "app/app/organizations/new/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CGitHub%5C%5CValidate-Hub%5C%5Capp%5C%5Capp%5C%5Corganizations%5C%5Cactions.ts%22%2C%5B%22createOrgAndWorkspaceFromApp%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/app/organizations/new/page": "action-browser"
+      }
+    },
     "a5268647550920947e20ff1df10ae82bbcd774ec": {
       "workers": {
         "app/onboarding/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CGitHub%5C%5CValidate-Hub%5C%5Capp%5C%5Conboarding%5C%5Cactions.ts%22%2C%5B%22createOrgAndWorkspace%22%5D%5D%5D&__client_imported__=true!"
@@ -10,5 +18,5 @@
     }
   },
   "edge": {},
-  "encryptionKey": "7cNnV4beCtRgGkmSoTgBqSrnpLmVV+796BLH19bsR5Q="
+  "encryptionKey": "Bs8pW3FNAHFVJdr5aA4JsLoXPVdCFBe7nNcYpg6gIGs="
 }

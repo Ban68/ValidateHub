@@ -2,30 +2,25 @@
 
 import { Button } from "@/components/ui/button";
 import { useSession } from 'next-auth/react';
-import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
+  const router = useRouter();
 
-  useEffect(() => {
+  const handleClick = () => {
     if (status === 'authenticated') {
-      window.location.href = '/app';
+      router.push('/app');
+    } else {
+      router.push('/sign-in');
     }
-  }, [status]);
-
-  if (status === 'loading' || status === 'authenticated') {
-    return (
-      <main className="flex min-h-screen flex-col items-center justify-center p-24">
-        <p>Loading...</p>
-      </main>
-    );
-  }
+  };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <h1 className="text-4xl font-bold mb-8">Validate-Hub</h1>
       <p className="mb-4">Welcome! Click the button below.</p>
-      <Button onClick={() => window.location.href = '/sign-in'}>
+      <Button onClick={handleClick}>
         Get Started
       </Button>
     </main>

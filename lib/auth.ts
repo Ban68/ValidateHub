@@ -23,40 +23,44 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger }) {
       if (user) {
         token.id = user.id;
       }
-      const membership = await prisma.membership.findFirst({
-        where: { userId: token.id as string },
-        include: {
-          organization: {
-            include: {
-              workspaces: { take: 1 },
+
+      // Only hit DB on sign-in or explicit session update
+      if (user || trigger === 'update') {
+        const membership = await prisma.membership.findFirst({
+          where: { userId: token.id as string },
+          include: {
+            organization: {
+              include: {
+                workspaces: { take: 1 },
+              },
             },
           },
-        },
-      });
+        });
 
-      if (membership) {
-        (token as any).membership = {
-          id: membership.id,
-          role: membership.role,
-          organizationId: membership.organizationId,
-          workspaceId: membership.organization.workspaces[0]?.id,
-        };
-      } else {
-        // remove membership from token if it exists
-        delete (token as any).membership;
+        if (membership) {
+          token.membership = {
+            id: membership.id,
+            role: membership.role,
+            organizationId: membership.organizationId,
+            workspaceId: membership.organization.workspaces[0]?.id,
+          };
+        } else {
+          // remove membership from token if it exists
+          token.membership = undefined;
+        }
       }
 
       return token;
     },
     async session({ session, token }) {
-      if (session.user) {
-        (session.user as any).id = token.id;
+      if (session.user && token.id) {
+        session.user.id = token.id as string;
       }
-      (session as any).membership = (token as any).membership;
+      session.membership = token.membership;
       return session;
     },
   },

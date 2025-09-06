@@ -1,12 +1,12 @@
 'use client';
 
 import { useFormState, useFormStatus } from 'react-dom';
-import { createOrgAndWorkspace } from './actions';
 import { Button } from '@/components/ui/button';
+import { createOrgAndWorkspaceFromApp } from '../actions';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-const initialState = { success: false, error: undefined };
+const initialState = { success: false, error: undefined as string | undefined };
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -17,23 +17,23 @@ function SubmitButton() {
   );
 }
 
-export default function OnboardingPage() {
-  const [state, formAction] = useFormState(createOrgAndWorkspace, initialState);
+export default function CreateOrganizationPage() {
+  const [state, formAction] = useFormState(createOrgAndWorkspaceFromApp, initialState);
   const router = useRouter();
 
   useEffect(() => {
     if (state.success) {
       fetch('/api/auth/session?update').then(() => {
-        router.replace('/app');
+        router.replace('/app/dashboard');
       });
     }
   }, [state.success, router]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
-      <h1 className="text-2xl font-bold mb-4">Onboarding</h1>
-      <p className="mb-6">Create your first organization and workspace.</p>
-      <form action={formAction} className="flex flex-col gap-4 w-80">
+    <div className="max-w-md mx-auto">
+      <h1 className="text-2xl font-bold mb-4">Create Organization</h1>
+      <p className="mb-6 text-sm text-muted-foreground">Create a new organization with its first workspace.</p>
+      <form action={formAction} className="flex flex-col gap-4">
         <input
           name="orgName"
           placeholder="Organization Name"
@@ -47,8 +47,9 @@ export default function OnboardingPage() {
           required
         />
         <SubmitButton />
-        {state.error && <p className="text-red-500">{state.error}</p>}
+        {state.error && <p className="text-red-500 text-sm">{state.error}</p>}
       </form>
     </div>
   );
 }
+

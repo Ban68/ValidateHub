@@ -16,10 +16,20 @@
       "static/chunks/main-app.js",
       "static/chunks/app/app/page.js"
     ],
-    "/sign-in/page": [
+    "/app/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/sign-in/page.js"
+      "static/chunks/app/app/layout.js"
+    ],
+    "/app/dashboard/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/app/dashboard/page.js"
+    ],
+    "/app/organizations/new/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/app/organizations/new/page.js"
     ],
     "/onboarding/page": [
       "static/chunks/webpack.js",
